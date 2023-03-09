@@ -1,6 +1,19 @@
 const express = require('express');
 const app = express();
 
+const cacheStore = {
+    data: {},
+    get: function (key) {
+      return this.data[key];
+    },
+    set: function (key, value) {
+      this.data[key] = value;
+    },
+    clear: function () {
+      this.data = {};
+    }
+  };
+
 // Cache middleware
 const cache = (req, res, next) => {
   const key = req.originalUrl || req.url;
